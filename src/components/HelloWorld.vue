@@ -28,15 +28,51 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+     <button  v-on:click=" testGrpc() " > Test GRPCWeb</button>
+
   </div>
+
+ 
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
+import * as grpcWeb from 'grpc-web';
+import {GreeterClient} from '../HelloworldServiceClientPb';
+
+import {
+  HelloReply,
+  HelloRequest,
+  RepeatHelloRequest} from '../helloworld_pb';
+
+
+
+const grClient = new GreeterClient('http://localhost:8080', null, null);
+
+
 @Component
 export default class HelloWorld extends Vue {
   @Prop() private msg!: string;
+
+  public testGrpc() {
+    
+
+  //     const reqClient = new HelloRequest();
+  //     reqClient.setName('André');
+
+  //     grClient.sayHello(reqClient, {'custom-header-1': 'value1'},
+  // (err: grpcWeb.Error, response: HelloReply) => {
+  //   console.log(response.getMessage());
+  // });
+
+//   HelloWorld.call.on('status', (status: grpcWeb.Status) => {
+//   // ...
+// });
+
+
+  }
+
 }
 </script>
 

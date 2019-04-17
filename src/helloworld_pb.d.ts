@@ -18,6 +18,28 @@ export namespace HelloRequest {
   }
 }
 
+export class RepeatHelloRequest extends jspb.Message {
+  getName(): string;
+  setName(value: string): void;
+
+  getCount(): number;
+  setCount(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): RepeatHelloRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: RepeatHelloRequest): RepeatHelloRequest.AsObject;
+  static serializeBinaryToWriter(message: RepeatHelloRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): RepeatHelloRequest;
+  static deserializeBinaryFromReader(message: RepeatHelloRequest, reader: jspb.BinaryReader): RepeatHelloRequest;
+}
+
+export namespace RepeatHelloRequest {
+  export type AsObject = {
+    name: string,
+    count: number,
+  }
+}
+
 export class HelloReply extends jspb.Message {
   getMessage(): string;
   setMessage(value: string): void;

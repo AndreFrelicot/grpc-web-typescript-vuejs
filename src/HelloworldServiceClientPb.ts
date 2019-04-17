@@ -11,7 +11,8 @@ import * as grpcWeb from 'grpc-web';
 
 import {
   HelloReply,
-  HelloRequest} from './helloworld_pb';
+  HelloRequest,
+  RepeatHelloRequest} from './helloworld_pb';
 
 export class GreeterClient {
   client_: grpcWeb.AbstractClientBase;
@@ -36,7 +37,7 @@ export class GreeterClient {
     (request: HelloRequest) => {
       return request.serializeBinary();
     },
-    HelloReply.deserializeBinary;
+    HelloReply.deserializeBinary
   );
 
   sayHello(
@@ -50,6 +51,47 @@ export class GreeterClient {
       request,
       metadata || {},
       this.methodInfoSayHello,
+      callback);
+  }
+
+  methodInfoSayRepeatHello = new grpcWeb.AbstractClientBase.MethodInfo(
+    HelloReply,
+    (request: RepeatHelloRequest) => {
+      return request.serializeBinary();
+    },
+    HelloReply.deserializeBinary
+  );
+
+  sayRepeatHello(
+    request: RepeatHelloRequest,
+    metadata?: grpcWeb.Metadata) {
+    return this.client_.serverStreaming(
+      this.hostname_ +
+        '/helloworld.Greeter/SayRepeatHello',
+      request,
+      metadata || {},
+      this.methodInfoSayRepeatHello);
+  }
+
+  methodInfoSayHelloAfterDelay = new grpcWeb.AbstractClientBase.MethodInfo(
+    HelloReply,
+    (request: HelloRequest) => {
+      return request.serializeBinary();
+    },
+    HelloReply.deserializeBinary
+  );
+
+  sayHelloAfterDelay(
+    request: HelloRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.Error,
+               response: HelloReply) => void) {
+    return this.client_.rpcCall(
+      this.hostname_ +
+        '/helloworld.Greeter/SayHelloAfterDelay',
+      request,
+      metadata || {},
+      this.methodInfoSayHelloAfterDelay,
       callback);
   }
 
